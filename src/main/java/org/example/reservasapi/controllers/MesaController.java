@@ -1,0 +1,38 @@
+package org.example.reservasapi.controllers;
+
+import org.example.reservasapi.entities.Mesa;
+import org.example.reservasapi.services.MesaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/mesas")
+public class MesaController {
+
+    @Autowired
+    private MesaService mesaService;
+
+    @PostMapping
+    public ResponseEntity<Mesa> crearMesa(@RequestBody Mesa mesa) {
+        return ResponseEntity.ok(mesaService.crearMesa(mesa));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Mesa> actualizarMesa(@PathVariable Long id, @RequestBody Mesa mesa) {
+        return ResponseEntity.ok(mesaService.actualizarMesa(id, mesa));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarMesa(@PathVariable Long id) {
+        mesaService.eliminarMesa(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Mesa>> listarMesas() {
+        return ResponseEntity.ok(mesaService.listarMesas());
+    }
+}
