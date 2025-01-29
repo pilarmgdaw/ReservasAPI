@@ -1,5 +1,6 @@
 package org.example.reservasapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,10 +28,11 @@ public class Cliente {
     @NotBlank(message = "El email es obligatorio")
     private String email;
 
-    @Pattern(regexp = "\\d{10}", message = "El teléfono debe tener 10 dígitos")
+    @Column(name = "telefono", length = 15)
     @NotBlank(message = "El teléfono es obligatorio")
     private String telefono;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Reserva> reservas;
 }

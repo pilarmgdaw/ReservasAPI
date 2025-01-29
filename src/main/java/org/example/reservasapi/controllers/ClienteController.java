@@ -3,6 +3,7 @@ package org.example.reservasapi.controllers;
 import org.example.reservasapi.entities.Cliente;
 import org.example.reservasapi.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,17 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@Valid @RequestBody Cliente cliente) {
-        return ResponseEntity.ok(clienteService.crearCliente(cliente));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.crearCliente(cliente));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) {
+        Cliente cliente = clienteService.obtenerClientePorId(id);
+        if (cliente != null) {
+            return ResponseEntity.ok(cliente);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")

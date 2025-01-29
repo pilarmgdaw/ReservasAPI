@@ -1,4 +1,4 @@
-package org.example.reservasapi.dto;
+package org.example.reservasapi.DTO;
 
 import lombok.Data;
 

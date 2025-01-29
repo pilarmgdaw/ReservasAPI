@@ -1,9 +1,10 @@
 package org.example.reservasapi.controllers;
 
-import org.example.reservasapi.dto.ReservaDTO;
+import org.example.reservasapi.DTO.ReservaDTO;
 import org.example.reservasapi.entities.Reserva;
 import org.example.reservasapi.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ReservaController {
 
     @PostMapping
     public ResponseEntity<Reserva> crearReserva(@Valid @RequestBody Reserva reserva) {
-        return ResponseEntity.ok(reservaService.crearReserva(reserva));
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.crearReserva(reserva));
     }
 
     @DeleteMapping("/{id}")
@@ -35,4 +36,20 @@ public class ReservaController {
     public ResponseEntity<List<ReservaDTO>> listarReservasPorFecha(@PathVariable LocalDate fecha) {
         return ResponseEntity.ok(reservaService.listarReservasPorFecha(fecha));
     }
+
+    @GetMapping
+    public ResponseEntity<List<Reserva>> listarReservas() {
+        return ResponseEntity.ok(reservaService.listarReservas());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Reserva> obtenerReservaPorId(@PathVariable Long id) {
+        Reserva reserva = reservaService.obtenerReservaPorId(id);
+        if (reserva != null) {
+            return ResponseEntity.ok(reserva);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 package org.example.reservasapi.services;
 
-import org.example.reservasapi.dto.ReservaDTO;
+import org.example.reservasapi.DTO.ReservaDTO;
 import org.example.reservasapi.entities.Reserva;
 import org.example.reservasapi.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +30,13 @@ public class ReservaService {
     public List<ReservaDTO> listarReservasPorFecha(LocalDate fecha) {
         // Lógica para listar reservas por fecha
         return null;
+    }
+
+    public List<Reserva> listarReservas() {
+        return reservaRepository.findAll();
+    }
+
+    public Reserva obtenerReservaPorId(Long id) {
+        return reservaRepository.findById(id).orElse(null);
     }
 }
