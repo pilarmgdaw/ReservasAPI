@@ -22,8 +22,13 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @PostMapping
-    public ResponseEntity<Reserva> crearReserva(@Valid @RequestBody Reserva reserva) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.crearReserva(reserva));
+    public ResponseEntity<String> crearReserva(@Valid @RequestBody Reserva reserva) {
+        try {
+            Reserva nuevaReserva = reservaService.crearReserva(reserva);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Reserva creada con éxito: " + nuevaReserva.getId());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

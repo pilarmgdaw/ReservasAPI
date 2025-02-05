@@ -8,5 +8,5 @@ public class ReservaDTO {
     private String email;
     private String fechaReserva;
     private String numeroMesa;
-    // Otros campos necesarios
+    
 }

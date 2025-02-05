@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class ReservaService {
 
     public Reserva crearReserva(Reserva reserva) {
         // Verificar disponibilidad de la mesa
-        if (reservaRepository.existsByMesaAndFechaHora(reserva.getMesa(), reserva.getFechaHora())) {
+        if (reservaRepository.existsByMesaIdAndFechaHora(reserva.getMesa(), reserva.getFechaHora())) {
             throw new IllegalArgumentException("La mesa no está disponible para la fecha y hora seleccionadas");
         }
         return reservaRepository.save(reserva);
@@ -38,5 +39,9 @@ public class ReservaService {
 
     public Reserva obtenerReservaPorId(Long id) {
         return reservaRepository.findById(id).orElse(null);
+    }
+    public boolean isMesaDisponible(Long mesaId, LocalDateTime fechaHora) {
+        List<Reserva> reservas = reservaRepository.findByMesaIdAndFechaHora(mesaId, fechaHora);
+        return reservas.isEmpty();
     }
 }
