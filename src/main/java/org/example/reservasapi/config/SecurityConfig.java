@@ -1,6 +1,8 @@
 package org.example.reservasapi.config;
 
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,8 +46,10 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())   //Se desabilita para las API ya que no se manejan sesiones sino con tokens
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Indicamos que no cree una sesión porque vamos a utilizar tokens
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
+
                 );
 
 
@@ -53,5 +57,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 
 }
