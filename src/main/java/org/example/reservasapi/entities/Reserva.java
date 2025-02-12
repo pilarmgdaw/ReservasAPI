@@ -33,4 +33,6 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "mesa_id", nullable = false)
     private Mesa mesa;
+
+
 }
