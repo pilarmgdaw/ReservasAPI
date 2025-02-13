@@ -21,7 +21,7 @@ public class ReservaService {
 
     public Reserva crearReserva(Reserva reserva) {
         // Verificar disponibilidad de la mesa
-        if (reservaRepository.existsByMesaIdAndFechaHora(reserva.getMesa(), reserva.getFechaHora())) {
+        if (reservaRepository.existsByMesaIdAndFecha(reserva.getMesa(), reserva.getFecha())) {
             throw new IllegalArgumentException("La mesa no está disponible para la fecha y hora seleccionadas");
         }
         return reservaRepository.save(reserva);
@@ -38,7 +38,7 @@ public class ReservaService {
         for (Reserva reserva : listadoReservas) {
             ReservaDTO reservaDTO = new ReservaDTO();
             reserva.setId(reserva.getId());
-            reserva.setFechaHora(reserva.getFechaHora());
+            reserva.setFecha(reserva.getFecha());
             reserva.setNumeroPersonas(reserva.getNumeroPersonas());
             reserva.setCliente(reserva.getCliente());
             reserva.setMesa(reserva.getMesa());
@@ -54,8 +54,8 @@ public class ReservaService {
     public Reserva obtenerReservaPorId(Long id) {
         return reservaRepository.findById(id).orElse(null);
     }
-    public boolean isMesaDisponible(Long mesaId, LocalDateTime fechaHora) {
-        List<Reserva> reservas = reservaRepository.findByMesaIdAndFechaHora(mesaId, fechaHora);
+    public boolean isMesaDisponible(Long mesaId, LocalDate fecha) {
+        List<Reserva> reservas = reservaRepository.findByMesaIdAndFecha(mesaId, fecha);
         return reservas.isEmpty();
     }
 }

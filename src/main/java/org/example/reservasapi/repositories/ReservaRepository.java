@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
-    boolean existsByMesaIdAndFechaHora(Mesa mesaId, LocalDateTime fechaHora);
-    List<Reserva> findByMesaIdAndFechaHora(Long mesaId, LocalDateTime fechaHora);
+    boolean existsByMesaIdAndFecha(Mesa mesaId, LocalDate fecha);
+    List<Reserva> findByMesaIdAndFecha(Long mesaId, LocalDate fecha);
     List<Reserva> findByFecha(LocalDate fecha);
 }

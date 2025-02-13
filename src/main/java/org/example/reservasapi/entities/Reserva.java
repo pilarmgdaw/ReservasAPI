@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +22,7 @@ public class Reserva {
 
     @NotNull(message = "La fecha y hora son obligatorias")
     @Future(message = "La fecha y hora deben ser futuras")
-    private LocalDateTime fechaHora;
+    private LocalDate fecha;
 
     @Min(value = 1, message = "El número de personas debe ser al menos 1")
     private int numeroPersonas;
