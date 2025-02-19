@@ -2,11 +2,14 @@ package org.example.reservasapi.DTO;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class ReservaDTO {
+    private Long id;
     private String nombre;
     private String email;
-    private String fechaReserva;
+    private LocalDate fechaReserva;
     private String numeroMesa;
 
     public String getNombre() {
@@ -25,11 +28,11 @@ public class ReservaDTO {
         this.numeroMesa = numeroMesa;
     }
 
-    public String getFechaReserva() {
+    public LocalDate getFechaReserva() {
         return fechaReserva;
     }
 
-    public void setFechaReserva(String fechaReserva) {
+    public void setFechaReserva(LocalDate fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
 

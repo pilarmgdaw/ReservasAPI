@@ -37,11 +37,11 @@ public class ReservaService {
 
         for (Reserva reserva : listadoReservas) {
             ReservaDTO reservaDTO = new ReservaDTO();
-            reserva.setId(reserva.getId());
-            reserva.setFecha(reserva.getFecha());
-            reserva.setNumeroPersonas(reserva.getNumeroPersonas());
-            reserva.setCliente(reserva.getCliente());
-            reserva.setMesa(reserva.getMesa());
+            reservaDTO.setId(reserva.getId());
+            reservaDTO.setFechaReserva(reserva.getFecha());
+            reservaDTO.setNumeroMesa(reserva.getMesa().getNumero());
+            reservaDTO.setNombre(reserva.getCliente().getNombre());
+            reservaDTO.setEmail(reserva.toString());
             listadoReservasDTO.add(reservaDTO);
         }
         return listadoReservasDTO;
